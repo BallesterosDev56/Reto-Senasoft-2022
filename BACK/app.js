@@ -14,8 +14,8 @@ app.use(express.json())
 app.use(cors())
 
 io.on('connect', (socket) => {
-    console.log('A user has log');
-    newGameGame(io, socket)
+    console.log('A user has log')
+    newGame(io, socket)
     joinRoom(io, socket)
     startGame(io, socket)
     choosedPerk(io, socket)
