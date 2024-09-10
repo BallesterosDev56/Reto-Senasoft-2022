@@ -63,4 +63,3 @@ let a = [
 
 let b = { antonio: {nombre : "jose", edad: 23, a: { b: "hola"} }}
 b["as"] = "holi"
-console.log(b["antonio"].a["b"])

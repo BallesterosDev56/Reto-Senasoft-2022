@@ -14,9 +14,7 @@ export async function setWinner(data) {
                 // Si encontramos un valor igual al máximo, añadimos la carta a los ganadores
                 max = 'draw'
             }
-            console.log(max)
         })
-        console.log(max)
         return max
     }catch(err){
         console.log(err)

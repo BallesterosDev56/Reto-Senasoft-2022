@@ -1,9 +1,9 @@
-import { hexGenerator } from "../utils/hexGenerator"
-import { createRoom, getRoomByHex } from "../repositories/roomsRepo"
-import { cards, cards } from "../cards/cards"
-import { shuffler } from "../utils/shuffler"
-import { setWinner } from "../utils/setWinner"
-import { getRoomSize } from "../utils/getRoomSize"
+import { hexGenerator } from "../utils/hexGenerator.js"
+import { newRoom, getRoomByHex } from "../repositories/roomsRepo.js"
+import { cards } from "../cards/cards.js"
+import { shuffler } from "../utils/shuffler.js"
+import { setWinner } from "../utils/setWinner.js"
+import { getRoomSize } from "../utils/getRoomSize.js"
 
 export function newGame(io, socket) {
     socket.on('game:newGame', async (data)=> {
