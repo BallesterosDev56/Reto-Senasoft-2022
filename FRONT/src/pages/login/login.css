@@ -1,0 +1,16 @@
+.form--container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#card--login {
+    border-radius: 1.1rem;
+}
+.card--body--login {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+#title--login {
+    font-size: 50px;
+}
