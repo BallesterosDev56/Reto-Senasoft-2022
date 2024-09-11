@@ -15,11 +15,10 @@ export function newGame(io, socket) {
             if(!code){
                 return socket.emit('game:error', {message: 'Error in the hexGenerator'})
             }
+            socket.join(code)
             await newRoom(code)
             socket.emit('game:code', code) // envio codigo hex y creo la sala
         }catch(err){
-            
-            
             socket.emit('game:error', {message: 'Error creating the game', error: err.message})
         }
     })
@@ -35,7 +34,7 @@ export function joinRoom(io, socket){
             await socket.join(data)
             const playersN = getRoomSize(io,data)
             console.log(playersN);
-            socket.emit('game:joinRoom', data)
+            socket.emit('game:joinRoom', "Success")
             io.to(data).emit("game:newPlayer", "antonio") // numero de jugadores
         } catch(err){
             socket.emit('game:error', {message: 'Error joining the game', error: err.message})
