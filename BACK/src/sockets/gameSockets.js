@@ -16,6 +16,8 @@ export function newGame(io, socket) {
             socket.join(code)
             socket.emit('game:code', code) // envio codigo hex y creo la sala
         }catch(err){
+            
+            
             socket.emit('game:error', {message: 'Error creating the game', error: err})
         }
     })

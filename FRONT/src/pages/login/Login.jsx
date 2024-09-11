@@ -16,7 +16,10 @@ export const Login = ()=> {
     useEffect(()=> {
         const newSocket = io('http://localhost:3000');
         setSocket(newSocket);
-
+        newSocket.on('connect', ()=> {
+            console.log('holi');
+            
+        })
         return ()=>newSocket.close();
     }, []);
     
