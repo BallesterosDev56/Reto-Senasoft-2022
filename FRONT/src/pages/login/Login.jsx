@@ -1,16 +1,21 @@
 import './login.css'
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../logic/authPlayer';
+import { useAuth } from '../../logic/authGuest/AuthPlayer';
 import { useForm } from 'react-hook-form'
 import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
+import { useAdmin } from '../../logic/authAdmin/AuthAdmin';
 
 export const Login = ()=> {
     const {register, handleSubmit, reset, formState: {errors}} = useForm();
     const navigate = useNavigate();
-    const [code, setCode] = useState(null);
     const {playerState, play} = useAuth();
+    const {adminState, playAdmin} = useAdmin();
     const [socket, setSocket] = useState(null);
+    const [codeAdmin, setCodeAdmin] = useState(null);
+    const [codeGuest, setCodeGuest] = useState(null);
+
+
 
     //creando la conexión del socket
     useEffect(()=> {
@@ -19,34 +24,83 @@ export const Login = ()=> {
 
         return ()=>newSocket.close();
     }, []);
+
     
-    //escuchando los eventos:
+        //escuchando los eventos:
+
     useEffect(()=>{
         if (socket) {
+
+                //CREATE ROOM
+
+            //receiving the code: 
             socket.on('game:code', (codigo)=>{
-                console.log(codigo);
+                let cleanCode = codigo.replace('#', '');
+                setCodeAdmin(cleanCode);
             });
+
+            //receiving the error:
             socket.on('game:error', (err)=>{
                 console.log(err);
+            });
+                //JOIN ROOOM
+            
+            //receiving the joining response:
+            socket.on('game:joinRoom', (response)=>{
+                console.log(response);
+                //if response es correcta:
+                play();
+                //seteamos el estado del codigo del guest player
+
+                
+            });
+
+            //receiving the numbers of players:
+            socket.on('game:newPlayer', (nPlayers)=>{
+                console.log(nPlayers);
+                
             });
 
         }
 
     }, [socket])
 
+    //accediendo a los cambios de los estados:
+
+    //code y adminState
+    useEffect(()=>{
+        if (codeAdmin && adminState) {
+            navigate(`/admin-waiting/${codeAdmin}`);
+            
+        }
+    }, [codeAdmin, adminState]);
+
+    //guestCode y playerState
+    useEffect(()=> {
+        if (playerState && codeGuest) {
+            console.log(codeGuest, adminState);
+            navigate(`/guest-waiting/${codeAdmin}`);
+            
+        }
+    }), [codeGuest, playerState]
+
+
+    //funcion para manejar el click del botón CREATE GAME
     const handleOnClick = ()=> {
-        
-        play();
-        play();
-        setCode(code);
+        playAdmin();
+
+        //emiting the new game:
         socket.emit('game:newGame', 'testing');
 
     }
 
+//JOIN A GAME
 
     const onSubmit = (data)=> {
-        console.log(data.match);
-        
+
+        //emiting the code to join:
+        socket.emit('game:joinRoom', data.match);
+       
         reset();
     }
 
@@ -64,9 +118,14 @@ export const Login = ()=> {
                         <div className="mt-5">
                             <label htmlFor="match" className="form-label fs-3">Join a game:</label><br />
                             <input {...register('match', {
-                                required: 'Field required!'
+                                required: 'Field required!',
+                                pattern: {
+                                    value: /^#?([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$/,
+                                    message: 'The code does not match the pattern ❌'
+                                }
                             })} id='match' type="text" className="form-control" required/>
-                            <button type='submit' className="btn btn-primary mt-2">Join</button>
+                            {errors.match && <p className='text-danger fs-5 m-1'>{errors.match.message}</p>}
+                            <button type='submit' className="btn btn-primary mt-3">Join</button>
                         </div>
                     </form>
                 </div>

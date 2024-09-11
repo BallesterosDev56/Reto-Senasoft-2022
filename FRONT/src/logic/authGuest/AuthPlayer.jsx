@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const playerContext = createContext();
 
 export const PlayerProvider = ({children})=> {
-    const [playerState, setPlayerState] = useState(true);
+    const [playerState, setPlayerState] = useState(false);
 
     const play = ()=>setPlayerState(true);
     const leave = ()=>setPlayerState(false);
@@ -15,4 +15,4 @@ export const PlayerProvider = ({children})=> {
     )
 }
 
-export const useAuth = ()=>useContext(playerContext);
+export const useAuth = ()=> useContext(playerContext);

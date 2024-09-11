@@ -1,7 +1,9 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { ProtectedPlayer } from './logic/ProtectedPlayer';
-import { PlayerProvider } from './logic/authPlayer';
+import {ProtectedPlayer} from './logic/authGuest/ProtectedPlayer'
+import { PlayerProvider } from './logic/authGuest/AuthPlayer';
+import {ProtectedAdmin} from './logic/authAdmin/ProtectedAdmin'
+import { AdminProvider } from './logic/authAdmin/AuthAdmin';
 
 //pages:
 import { Redirect } from './pages/redirect/Redirect';
@@ -20,14 +22,14 @@ let routes = createBrowserRouter([
     element: <Login></Login>
   },
   {
-    path: '/admin-waiting',
+    path: '/admin-waiting/:code',
     element:
-    <ProtectedPlayer>
+    <ProtectedAdmin>
       <AdminWaiting/>
-    </ProtectedPlayer>
+    </ProtectedAdmin>
   },
   {
-    path: '/guest-waiting',
+    path: '/guest-waiting/:code',
     element:
     <ProtectedPlayer>
       <GuestWaiting/>
@@ -36,9 +38,7 @@ let routes = createBrowserRouter([
   {
     path: '/game',
     element: 
-    <ProtectedPlayer>
-      <Game/>
-    </ProtectedPlayer>
+    <Game/>
   }
 ]);
 
@@ -46,9 +46,11 @@ function App() {
  
 
   return (
-    <PlayerProvider>
-      <RouterProvider router={routes}></RouterProvider>
-    </PlayerProvider>
+    <AdminProvider>
+      <PlayerProvider>
+        <RouterProvider router={routes}></RouterProvider>
+      </PlayerProvider>
+    </AdminProvider>
 )
 }
 
