@@ -29,7 +29,6 @@ export const Login = ()=> {
             socket.on('game:error', (err)=>{
                 console.log(err);
             });
-
         }
 
     }, [socket])
@@ -40,7 +39,6 @@ export const Login = ()=> {
         play();
         setCode(code);
         socket.emit('game:newGame', 'testing');
-
     }
 
 

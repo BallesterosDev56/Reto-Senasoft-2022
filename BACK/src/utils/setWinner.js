@@ -1,21 +1,24 @@
-export function setWinner(data) {
+export function setWinner(cards, category) {
     try{
-        let category = data[1]
-        let cards = data[2]
-        let max = cards[0]
-        let winners = [cards[0]]
-        
-        
-        cards.forEach( card => {
+        let max = {cilindraje: 0 , potencia: 0, topSpeed: 0 }
+        let winner = [max.id]
+        cards.forEach( cardObj => {
+            
+            let card = cardObj.card
             if(max[category] < card[category]){
                 max = card
-                winners = [card]
+                winner = [cardObj.id]
             } else if (card[category] === max[category]) {
                 // Si encontramos un valor igual al máximo, añadimos la carta a los ganadores
-                max = 'draw'
+                winner.push(cardObj.id)
             }
         })
-        return max
+        if(winner.length > 1){
+            return "draw"
+        }else{
+            return winner[0]
+        }
+        
     }catch(err){
         console.log(err)
     }
@@ -59,5 +62,6 @@ let a = [
         { id: "H4", photo: "",modelo: "Range Rover", cilindraje: 5000, potencia: 518, topSpeed: 225 }
     ]
 ]
-
-setWinner(a)
+let b = [{id:1, card: { id: "B1", photo: "",modelo: "M3", cilindraje: 3000 , potencia: 473, topSpeed: 250 }}, {id:2, card: { id: "B1", photo: "",modelo: "M3", cilindraje: 3000 , potencia: 479, topSpeed: 250 }}]
+let as = setWinner(b, "potencia")
+console.log(as);
