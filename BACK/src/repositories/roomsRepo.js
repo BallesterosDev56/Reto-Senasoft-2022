@@ -30,7 +30,7 @@ export async function getRoomByHex(hex) {
 
 export async function newRoom(hex) {
     try{
-        const [result] = await db.query('INSERT INTO rooms (hex,players_number) VALUES (?,?)', [hex, 1])
+        const [result] = await db.query('INSERT INTO rooms (hex) VALUES (?)', [hex])
         if(result.affectedRows == 0){
             return null
         }

@@ -1,4 +1,4 @@
-export async function hexGenerator() {
+export function hexGenerator() {
     const chars = '1234567890ABCDEF'
     let code = '#'
     for(let i = 0 ; i< 6 ; i++){

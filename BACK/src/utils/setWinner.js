@@ -1,4 +1,4 @@
-export async function setWinner(data) {
+export function setWinner(data) {
     try{
         let category = data[1]
         let cards = data[2]

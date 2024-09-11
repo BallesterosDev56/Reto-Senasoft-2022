@@ -8,17 +8,20 @@ import { getRoomSize } from "../utils/getRoomSize.js"
 export function newGame(io, socket) {
     socket.on('game:newGame', async (data)=> {
         try{
+            
             const code = hexGenerator()
+            console.log(code);
+            
             if(!code){
                 return socket.emit('game:error', {message: 'Error in the hexGenerator'})
             }
-            await createRoom(code)
+            await newRoom(code)
             socket.join(code)
             socket.emit('game:code', code) // envio codigo hex y creo la sala
         }catch(err){
             
             
-            socket.emit('game:error', {message: 'Error creating the game', error: err})
+            socket.emit('game:error', {message: 'Error creating the game', error: err.message})
         }
     })
 }
@@ -35,7 +38,7 @@ export function joinRoom(io, socket){
             socket.emit('game:joinRoom', "Success")
             io.to(data).emit("game:newPlayer", playersN) // numero de jugadores
         } catch(err){
-            socket.emit('game:error', {message: 'Error joining the game', error: err})
+            socket.emit('game:error', {message: 'Error joining the game', error: err.message})
         }
     })
 }
@@ -53,7 +56,7 @@ export function startGame(io, socket){
             })
             i = 0
         } catch(err){
-            socket.emit('game:error', {message: 'Error starting the game', error: err})
+            socket.emit('game:error', {message: 'Error starting the game', error: err.message})
         }
     })
 }
@@ -70,7 +73,7 @@ export function choosedPerk(io, socket){
             }
             socket.emit('game:play', 'Play your card') // le devuelvo un array de arrays, cada uno con 4 cartas aleatorias
         } catch(err){
-            socket.emit('game:error', {message: 'Error choosen the perk the game', error: err})
+            socket.emit('game:error', {message: 'Error choosen the perk the game', error: err.message})
         }
     })
 }
@@ -83,7 +86,7 @@ export function startRound(io, socket){
             
             socket.emit('game:cards', shuffledCards) // le devuelvo un array de arrays, cada uno con 4 cartas aleatorias
         } catch(err){
-            socket.emit('game:error', {message: 'Error starting the round', error: err})
+            socket.emit('game:error', {message: 'Error starting the round', error: err.message})
         }
     })
 }
@@ -98,7 +101,7 @@ export function roundWinner(io, socket){
             const winner = setWinner(data)
             io.to(data[0]).emit('game:winner', winner) // winner = {carta ganadora} || "draw"
         }catch(err){
-            socket.emit('game:error', {message: 'Error in the game logic', error: err})
+            socket.emit('game:error', {message: 'Error in the game logic', error: err.message})
         }
     })
 }

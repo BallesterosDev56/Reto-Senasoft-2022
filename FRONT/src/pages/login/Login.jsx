@@ -16,21 +16,19 @@ export const Login = ()=> {
     useEffect(()=> {
         const newSocket = io('http://localhost:3000');
         setSocket(newSocket);
-        newSocket.on('connect', ()=> {
-            console.log('holi');
-            
-        })
+
         return ()=>newSocket.close();
     }, []);
     
     //escuchando los eventos:
     useEffect(()=>{
         if (socket) {
-            socket.on('game:code', ((codigo)=>{
+            socket.on('game:code', (codigo)=>{
                 console.log(codigo);
-                console.log('ola');
-                
-            }));
+            });
+            socket.on('game:error', (err)=>{
+                console.log(err);
+            });
 
         }
 
