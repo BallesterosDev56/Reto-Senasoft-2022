@@ -16,7 +16,6 @@ export function newGame(io, socket) {
                 return socket.emit('game:error', {message: 'Error in the hexGenerator'})
             }
             await newRoom(code)
-            socket.join(code)
             socket.emit('game:code', code) // envio codigo hex y creo la sala
         }catch(err){
             
@@ -30,14 +29,14 @@ export function joinRoom(io, socket){
     socket.on('game:joinRoom', async (data) =>{ // data = "codigo hex de la sala"
         try{
             const result = await getRoomByHex(data)
-            const playersN = getRoomSize(data)
             if(!result){
                 return socket.emit('game:joinRoom', "The room doesn't exist")
             }
+            await socket.join(data)
+            const playersN = getRoomSize(io,data)
             console.log(playersN);
-            socket.join(data)
-            socket.emit('game:joinRoom', "Success")
-            io.to(data).emit("game:newPlayer", playersN) // numero de jugadores
+            socket.emit('game:joinRoom', data)
+            io.to(data).emit("game:newPlayer", "antonio") // numero de jugadores
         } catch(err){
             socket.emit('game:error', {message: 'Error joining the game', error: err.message})
         }

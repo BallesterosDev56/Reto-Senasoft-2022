@@ -43,8 +43,6 @@ export const Login = ()=> {
             socket.on('game:error', (err)=>{
                 console.log(err);
             });
-<<<<<<< HEAD
-=======
                 //JOIN ROOOM
             
             //receiving the joining response:
@@ -63,7 +61,6 @@ export const Login = ()=> {
                 
             });
 
->>>>>>> 2c04ae6c56562a3da2b274f9dd1e5c5233f0ffb9
         }
 
     }, [socket])

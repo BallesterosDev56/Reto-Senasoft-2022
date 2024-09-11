@@ -63,5 +63,4 @@ let a = [
     ]
 ]
 let b = [{id:1, card: { id: "B1", photo: "",modelo: "M3", cilindraje: 3000 , potencia: 473, topSpeed: 250 }}, {id:2, card: { id: "B1", photo: "",modelo: "M3", cilindraje: 3000 , potencia: 479, topSpeed: 250 }}]
-let as = setWinner(b, "potencia")
-console.log(as);
+
