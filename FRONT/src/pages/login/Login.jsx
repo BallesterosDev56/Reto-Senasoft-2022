@@ -91,7 +91,6 @@ export const Login = ()=> {
 
         //emiting the new game:
         socket.emit('game:newGame', 'testing');
-
     }
 
 //JOIN A GAME
