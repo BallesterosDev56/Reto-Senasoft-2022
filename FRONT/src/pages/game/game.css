@@ -1,0 +1,22 @@
+.game--container {
+    width: 100%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+}
+
+.cards--container {
+    justify-content: space-evenly;
+    margin: 0 auto;
+    height: 35vh;
+}
+
+.battle--container {
+    height: 30vh;
+}
+
+.buttons--container {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+}
