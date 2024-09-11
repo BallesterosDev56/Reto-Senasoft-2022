@@ -1,9 +1,36 @@
+import { useEffect, useState } from 'react';
 import './adminWaiting.css'
-import { useParams } from 'react-router-dom'
 
 
-export const AdminWaiting = ()=> {
-    const {code} = useParams();
+export const AdminWaiting = ({socket})=> {
+    const [code, setCode] = useState(null);
+
+    useEffect(()=>{
+
+        //emitimos el generador del codigo
+        socket.emit('game:newGame', 'testing');
+
+    }, [])
+
+    useEffect(()=> {
+        if (socket) {
+            //recibimos el codigo
+            socket.on('game:code', (code)=>{
+                setCode(code);
+            
+            });
+
+
+        }
+    }, [socket]);
+
+    useEffect(()=> {
+        if (code) {
+          console.log(code);
+            
+            
+        }
+    }, [code])
     
 
     return(
@@ -11,7 +38,7 @@ export const AdminWaiting = ()=> {
         <div className="card rounded-5 p-5">
             <div className="row mt-5">
                 <div className="card-body rounded bg-secondary text-white p-2">
-                <h2 className="fs-1">CODE: #{code}</h2>
+                <h2 className="fs-1">CODE: {code}</h2>
                 </div>
             </div>
 

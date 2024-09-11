@@ -1,6 +1,17 @@
+import { useEffect } from "react";
 import "./guestWaiting.css";
 
-export const GuestWaiting = () => {
+export const GuestWaiting = ({socket}) => {
+    
+    useEffect(()=> {
+        socket.on('game:joinRoom', (code)=> {
+            console.log(code);
+            
+
+        });
+    }, [socket])
+
+
   return (
     <div className="waiting--container min-vh-100 container">
         <div className="card rounded-5 p-5">
@@ -15,9 +26,9 @@ export const GuestWaiting = () => {
             </div>
             
             <div className="row m-5 mb-0">
-                <button class="btn btn-primary fs-5" type="button" disabled>
+                <button className="btn btn-primary fs-5" type="button" disabled>
                 <span
-                    class="spinner-border spinner-border-sm"
+                    className="spinner-border spinner-border-sm"
                     aria-hidden="true"
                 ></span>
                 <span role="status">Loading...</span>

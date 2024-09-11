@@ -1,57 +1,42 @@
 import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import {ProtectedPlayer} from './logic/authGuest/ProtectedPlayer'
-import { PlayerProvider } from './logic/authGuest/AuthPlayer';
-import {ProtectedAdmin} from './logic/authAdmin/ProtectedAdmin'
-import { AdminProvider } from './logic/authAdmin/AuthAdmin';
+import { useEffect, useState } from 'react'
+import { io } from 'socket.io-client'
 
 //pages:
-import { Redirect } from './pages/redirect/Redirect';
-import { Login } from './pages/login/Login';
-import { AdminWaiting } from './pages/adminWaiting/AdminWaiting';
-import { GuestWaiting } from './pages/guestWaiting/GuestWaiting';
-import { Game } from './pages/game/Game';
+import {Login} from './pages/login/Login'
+import {AdminWaiting} from './pages/adminWaiting/AdminWaiting'
+import {GuestWaiting} from './pages/guestWaiting/GuestWaiting'
 
-let routes = createBrowserRouter([
-  {
-    path: '/',
-    element: <Redirect></Redirect>
-  },
-  {
-    path: '/login',
-    element: <Login></Login>
-  },
-  {
-    path: '/admin-waiting/:code',
-    element:
-    <ProtectedAdmin>
-      <AdminWaiting/>
-    </ProtectedAdmin>
-  },
-  {
-    path: '/guest-waiting/:code',
-    element:
-    <ProtectedPlayer>
-      <GuestWaiting/>
-    </ProtectedPlayer>
-  },
-  {
-    path: '/game',
-    element: 
-    <Game/>
-  }
-]);
 
 function App() {
- 
+  const [socket, setSocket] = useState();
+  const [renderLogin, setRenderLogin] = useState('');
+  
+  useEffect(()=> {
+    const newSocket = io('http://localhost:3000');
+    setSocket(newSocket);
+    
+    return ()=> newSocket.close();
 
-  return (
-    <AdminProvider>
-      <PlayerProvider>
-        <RouterProvider router={routes}></RouterProvider>
-      </PlayerProvider>
-    </AdminProvider>
-)
+  }, [])
+
+
+  return(
+    <>
+      {renderLogin =='' ? 
+        (<Login 
+          setRenderLogin={setRenderLogin}
+          socket={socket}
+        ></Login>)
+        : renderLogin == 'Admin'? (<AdminWaiting 
+                                    socket={socket}
+                                    ></AdminWaiting>)
+        : (<GuestWaiting 
+          socket={socket}
+          ></GuestWaiting>)
+      }
+    </>
+  )  
 }
 
 export default App
