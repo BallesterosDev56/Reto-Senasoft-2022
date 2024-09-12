@@ -12,7 +12,6 @@ export const Login = ({setRenderLogin, socket})=> {
         
     }
     const onSubmit = (data)=> {
-        console.log(data.match);
         
         socket.emit('game:joinRoom', data.match);
         setRenderLogin('Guest');

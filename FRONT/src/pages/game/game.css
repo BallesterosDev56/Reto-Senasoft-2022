@@ -1,18 +1,34 @@
 .game--container {
     width: 100%;
-    background: transparent;
+    background: linear-gradient(to right, #000000d4, #000000e6);
     display: flex;
     justify-content: center;
+}
+#bg--grey {
+    background: linear-gradient(to left, #198754af, #095d368d);
+}
+
+.card--users--container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .cards--container {
     justify-content: space-evenly;
     margin: 0 auto;
-    height: 35vh;
+    height: 30vh;
 }
 
 .battle--container {
-    height: 30vh;
+    background: transparent;
+    overflow-y: hidden;
+    justify-content: center;
+    gap: 1%;
+    flex-wrap: wrap;
+    align-items: center;
+    display: flex;
+
 }
 
 .buttons--container {

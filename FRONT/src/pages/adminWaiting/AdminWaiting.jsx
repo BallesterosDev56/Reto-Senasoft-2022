@@ -2,16 +2,23 @@ import { useEffect, useState } from 'react';
 import './adminWaiting.css'
 
 
-export const AdminWaiting = ({socket})=> {
+export const AdminWaiting = ({socket, nPlayers})=> {
     const [code, setCode] = useState(null);
+    const [buttonState, setButtonState] = useState(true)
+
+    useEffect(()=> {
+        if (nPlayers >= 2) {
+            setButtonState(false)
+        }
+    }), [nPlayers];
 
     useEffect(()=>{
-
         //emitimos el generador del codigo
         socket.emit('game:newGame', 'testing');
 
     }, [])
 
+    //escuchando el cambio del socket
     useEffect(()=> {
         if (socket) {
             //recibimos el codigo
@@ -24,6 +31,8 @@ export const AdminWaiting = ({socket})=> {
         }
     }, [socket]);
 
+
+    //escuchando el cambio del estado de code
     useEffect(()=> {
         if (code) {
           console.log(code);
@@ -31,6 +40,10 @@ export const AdminWaiting = ({socket})=> {
             
         }
     }, [code])
+
+    const handlePlayClick = ()=> {
+        socket.emit('game:startGame', code);
+    }
     
 
     return(
@@ -47,7 +60,7 @@ export const AdminWaiting = ({socket})=> {
             </div>
             
             <div className="row m-5 mb-0">
-                <button className="btn btn-primary fs-3" type="button" disabled={true}>Play</button>
+                <button onClick={handlePlayClick} className="btn btn-primary fs-3" type="button" disabled={buttonState}>Play</button>
             </div>  
         </div>
     </div>
