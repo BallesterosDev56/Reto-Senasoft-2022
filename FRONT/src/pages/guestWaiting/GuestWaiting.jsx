@@ -15,13 +15,12 @@ export const GuestWaiting = ({socket, nPlayers, setRenderLogin}) => {
     //escuchando el cambio del socket
     useEffect(()=> {
         //recibimos los errores:
-        socket.on('game:error', (error)=> {
+        socket.on('room:error', (error)=> {
             console.log(error);
-            
         });
 
         //recibiendo el codigo:
-        socket.on('game:joinRoom', (code)=> {
+        socket.on('room:joinRoom', (code)=> {
             if (code === "The room doesn't exist") {
                 setRenderLogin('');
                 setTimeout(() => {

@@ -14,7 +14,7 @@ export const AdminWaiting = ({socket, nPlayers})=> {
 
     useEffect(()=>{
         //emitimos el generador del codigo
-        socket.emit('game:newGame', 'testing');
+        socket.emit('room:newGame', 'testing');
 
     }, [])
 
@@ -22,7 +22,9 @@ export const AdminWaiting = ({socket, nPlayers})=> {
     useEffect(()=> {
         if (socket) {
             //recibimos el codigo
-            socket.on('game:code', (code)=>{
+            socket.on('room:code', (code)=>{
+                console.log(code);
+                
                 setCode(code);
             
             });
@@ -33,6 +35,10 @@ export const AdminWaiting = ({socket, nPlayers})=> {
                 
             });
 
+            socket.on('game:error', (cards)=> {
+                console.log(cards);
+                
+            });
 
         }
     }, [socket]);
@@ -49,7 +55,6 @@ export const AdminWaiting = ({socket, nPlayers})=> {
 
     //emitir boton play
     const handlePlayClick = ()=> {
-        console.log(`codeee: ${code}`);
         
         socket.emit('game:startGame', code);
     }

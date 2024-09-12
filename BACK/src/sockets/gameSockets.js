@@ -11,7 +11,8 @@ export function startGame(io, socket){
     socket.on('game:startGame', (data) =>{ // data = "codigo hex de la sala"
         try{
             const socketsInRoom = io.sockets.adapter.rooms.get(data)
-            const playersN = getRoomSize(data)
+            console.log(socketsInRoom)
+            const playersN = getRoomSize(io,data)
             const shuffledCards = shuffler(cards, playersN)
             let i = 0
             firstCards[data] = {
@@ -37,7 +38,7 @@ export function startGame(io, socket){
 export function startRound(io, socket){
     socket.on('game:startRound', (data) => { // data = { code: hex, card: primera carta de la baraja } 
         try{
-            let playersN = getRoomSize(data.code)
+            let playersN = getRoomSize(io,data.code)
             if(!firstCards[data.code]){
                 return socket.emit('game:error', { message: 'Room not found' })
             }

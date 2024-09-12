@@ -7,7 +7,7 @@ export function choosedPerk(io, socket){
         try{
             roomsData[data.code] = {
                 cards: [],
-                totalPlayers: getRoomSize(data),
+                totalPlayers: getRoomSize(io, data),
                 perk: data.perk
             }
         } catch(err){

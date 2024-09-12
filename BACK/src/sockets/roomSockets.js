@@ -28,7 +28,6 @@ export function joinRoom(io, socket){
             }
             await socket.join(data)
             const playersN = getRoomSize(io,data)
-            console.log(playersN);
             socket.emit('room:joinRoom', data)
             io.to(data).emit("room:newPlayer", playersN) // numero de jugadores
         } catch(err){

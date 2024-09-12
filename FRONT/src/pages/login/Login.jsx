@@ -13,7 +13,7 @@ export const Login = ({setRenderLogin, socket})=> {
     }
     const onSubmit = (data)=> {
         
-        socket.emit('game:joinRoom', data.match);
+        socket.emit('room:joinRoom', data.match);
         setRenderLogin('Guest');
         
     }

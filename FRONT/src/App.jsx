@@ -27,7 +27,7 @@ function App() {
   //recibimos la cantidad de jugadores
   useEffect(()=>{
     if (socket) {
-      socket.on('game:newPlayer', (nPlayers)=> {
+      socket.on('room:newPlayer', (nPlayers)=> {
         setNumberPlayers(nPlayers);
         
       });
