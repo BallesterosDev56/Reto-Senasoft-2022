@@ -24,7 +24,7 @@ export function joinRoom(io, socket){
         try{
             const result = await getRoomByHex(data)
             if(!result){
-                return socket.emit('room:joinRoom', "The room doesn't exist")
+                return socket.emit('room:error', "The room doesn't exist")
             }
             await socket.join(data)
             const playersN = getRoomSize(io,data)
