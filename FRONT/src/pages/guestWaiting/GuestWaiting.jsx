@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./guestWaiting.css";
 
-export const GuestWaiting = ({socket, nPlayers}) => {
+export const GuestWaiting = ({socket, nPlayers, setRenderLogin}) => {
     const [code, setCode] = useState(null);
     const [buttonState, setButtonState] = useState(true);
 
@@ -14,10 +14,28 @@ export const GuestWaiting = ({socket, nPlayers}) => {
     
     //escuchando el cambio del socket
     useEffect(()=> {
+        //recibimos los errores:
+        socket.on('game:error', (error)=> {
+            console.log(error);
+            
+        });
 
         //recibiendo el codigo:
         socket.on('game:joinRoom', (code)=> {
-            setCode(code);            
+            if (code === "The room doesn't exist") {
+                setRenderLogin('');
+                setTimeout(() => {
+                    
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "The room doesn't exist",
+                      });
+                }, 400);
+            }else {
+                setCode(code);
+            }
+                        
 
         });
 

@@ -56,17 +56,18 @@ function App() {
         ></Login>)
 
         : renderLogin == 'Admin'?
-        // (<AdminWaiting 
-        //   socket={socket}
-        //   nPlayers={numberPlayers}
-        // ></AdminWaiting>)
-        (<Game></Game>)
+        (<AdminWaiting 
+          socket={socket}
+          nPlayers={numberPlayers}
+        ></AdminWaiting>)
+        //(<Game></Game>)
 
           
         : 
         (<GuestWaiting 
           socket={socket}
           nPlayers={numberPlayers}
+          setRenderLogin={setRenderLogin}
         ></GuestWaiting>)
 
       }
