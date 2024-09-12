@@ -36,16 +36,6 @@ function App() {
 
   }, [socket])
 
-  //escuchando el cambio de numberPlayers
-  useEffect(()=> {
-    if (numberPlayers) {
-      console.log(numberPlayers);
-      
-
-    }
-
-  }, [numberPlayers])
-
 
   return(
     <>

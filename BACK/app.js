@@ -31,7 +31,7 @@ io.on('connect', (socket) => {
     playCard(io, socket)
     roundWinner(io, socket)
 
-    socket.on('disconnect')
+
 })
 
 

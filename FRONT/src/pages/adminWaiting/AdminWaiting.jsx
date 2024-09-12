@@ -28,7 +28,7 @@ export const AdminWaiting = ({socket, nPlayers})=> {
             });
 
             //recibiendo las cartas:
-            socket.on('game:Cards', (cards)=> {
+            socket.on('game:cards', (cards)=> {
                 console.log(cards);
                 
             });
@@ -45,10 +45,13 @@ export const AdminWaiting = ({socket, nPlayers})=> {
             
             
         }
-    }, [code])
+    }, [code, setCode])
 
+    //emitir boton play
     const handlePlayClick = ()=> {
-        socket.emit('game:gameStart', code);
+        console.log(`codeee: ${code}`);
+        
+        socket.emit('game:startGame', code);
     }
     
 
@@ -62,7 +65,7 @@ export const AdminWaiting = ({socket, nPlayers})=> {
             </div>
 
             <div className="row mt-5">
-                    <h2 className="fs-1 text-center">{nPlayers}/7 Players</h2>
+                    <h2 className="fs-1 text-center">{nPlayers? nPlayers : 1}/7 Players</h2>
             </div>
             
             <div className="row m-5 mb-0">
