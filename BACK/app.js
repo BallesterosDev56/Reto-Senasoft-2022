@@ -30,6 +30,8 @@ io.on('connect', (socket) => {
     firstCard(io, socket)
     playCard(io, socket)
     roundWinner(io, socket)
+
+    socket.on('disconnect')
 })
 
 

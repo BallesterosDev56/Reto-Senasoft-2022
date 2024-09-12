@@ -10,9 +10,8 @@ export function choosedPerk(io, socket){
                 totalPlayers: getRoomSize(data),
                 perk: data.perk
             }
-            socket.emit('card:play', 'Holi') // le devuelvo un array de arrays, cada uno con 4 cartas aleatorias
         } catch(err){
-            socket.emit('card:error', {message: 'Error choosen the perk', error: err.message})
+            socket.emit('card:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
         }
     })
 }
@@ -26,9 +25,9 @@ export function firstCard(io, socket){
                 return socket.emit('card:error', { message: 'Room not found' });
             }
             roomsData[code].cards.push({id:socket.id, card: card})
-            socket.broadcast.to(data.code).emit('card:yourTourn', 'hola')
+            socket.broadcast.to(data.code).emit('card:yourTurn', 'Habilitado')
         } catch(err){
-            socket.emit('card:error', {message: 'Error throwing the first card', error: err.message})
+            socket.emit('card:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
         }
     })
 }
@@ -54,8 +53,10 @@ export function playCard(io, socket){
                 const winnerId = setWinner(roomsData[code].cards, roomsData[code].perk)
                 socket.emit('card:roundWinner', winnerId) // id ganador o draw
             }
+            roomsData[code].cards = []
+            roomsData[code].perk = ""
         } catch(err){
-            socket.emit('card:error', {message: 'Error starting the round', error: err.message})
+            socket.emit('card:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
         }
     })
 }
@@ -70,7 +71,7 @@ export function roundWinner(io, socket){
             const winner = setWinner(data)
             io.to(data[0]).emit('card:winner', winner) // winner = {carta ganadora} || "draw"
         }catch(err){
-            socket.emit('card:error', {message: 'Error in the game logic', error: err.message})
+            socket.emit('card:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
         }
     })
 }

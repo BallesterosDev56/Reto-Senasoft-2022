@@ -17,9 +17,7 @@ export function shuffler(cards, players) {
             j = Math.floor(Math.random() * cards.length);
             [cards[i], cards[j]] = [cards[j], cards[i]]
         } 
-        const baraja = divisor(cards, players)
-        console.log(baraja);
-        
+        const baraja = divisor(cards, players)        
         return baraja
     }catch(err){
         console.log(err)
