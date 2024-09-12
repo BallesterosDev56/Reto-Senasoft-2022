@@ -32,9 +32,6 @@ io.on('connect', (socket) => {
     choosedPerk(io, socket)
     firstCard(io, socket)
     playCard(io, socket)
-    roundWinner(io, socket)
-
-
 })
 
 
