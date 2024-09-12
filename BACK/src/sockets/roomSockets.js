@@ -36,6 +36,9 @@ export function joinRoom(io, socket){
     })
 }
 
-export async function hola(params) {
-    let a = "hola"
+export async function leaveRoom(io, socket) {
+    socket.on('disconnect', () => {
+        console.log("h");
+        
+    })
 }

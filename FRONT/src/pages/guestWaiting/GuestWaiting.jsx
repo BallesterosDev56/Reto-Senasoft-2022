@@ -14,10 +14,23 @@ export const GuestWaiting = ({socket, nPlayers, setRenderLogin}) => {
     
     //escuchando el cambio del socket
     useEffect(()=> {
+        
+        //recibiendo las cartas:
+        socket.on('game:cards', (cards)=> {
+            console.log(cards);
+            
+        });
+
         //recibimos los errores:
         socket.on('room:error', (error)=> {
             console.log(error);
         });
+        socket.on('game:error', (error)=> {
+            console.log(error);
+            
+        });
+
+
 
         //recibiendo el codigo:
         socket.on('room:joinRoom', (code)=> {

@@ -34,6 +34,7 @@ export const AdminWaiting = ({socket, nPlayers})=> {
                 
             });
 
+            //recibiendo los errores
             socket.on('game:error', (error)=> {
                 console.log(error);
                 
@@ -41,7 +42,7 @@ export const AdminWaiting = ({socket, nPlayers})=> {
 
             socket.on('room:error', (error)=>{
                 console.log(error);
-                
+
             });
         }
     }, [socket]);
