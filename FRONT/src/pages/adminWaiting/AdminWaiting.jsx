@@ -26,7 +26,6 @@ export const AdminWaiting = ({socket, nPlayers})=> {
                 console.log(code);
                 
                 setCode(code);
-            
             });
 
             //recibiendo las cartas:
@@ -35,11 +34,15 @@ export const AdminWaiting = ({socket, nPlayers})=> {
                 
             });
 
-            socket.on('game:error', (cards)=> {
-                console.log(cards);
+            socket.on('game:error', (error)=> {
+                console.log(error);
                 
             });
 
+            socket.on('room:error', (error)=>{
+                console.log(error);
+                
+            });
         }
     }, [socket]);
 
