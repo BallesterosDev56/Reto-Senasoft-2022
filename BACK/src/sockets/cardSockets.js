@@ -65,13 +65,3 @@ export function playCard(io, socket){
 
 
 
-export function roundWinner(io, socket){
-    socket.on('card:winner', (data)=> { //data = ['hex de la room', 'categoria seleccionada', [ {card}, {card} ]]  card = {socketID: ... , velocidad: ..., peso: ...}
-        try{
-            const winner = setWinner(data)
-            io.to(data[0]).emit('card:winner', winner) // winner = {carta ganadora} || "draw"
-        }catch(err){
-            socket.emit('card:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
-        }
-    })
-}
