@@ -1,0 +1,19 @@
+.card--user {
+    width: 80px;
+    height: 70%;
+    background: linear-gradient(to left, #707070, #a1a1a1);
+    border: solid #FBDB01 3px;
+    border-radius: 10px;
+    color: white;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.logo--content img {
+    width: 50%;
+}

@@ -1,0 +1,43 @@
+.card--blackjack {
+    width: 160px;
+    height: 95%;
+    background: linear-gradient(to left, #31D2F2, #3967adc8);
+    border: solid #FBDB01 5px;
+    border-radius: 10px;
+    color: white;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card--image {
+    text-align: center ;
+  }
+  
+  .card--image img {
+    width: 60%;
+    object-fit: cover;
+  }
+  
+  .card--content {
+    padding: 4%;
+    flex-grow: 1;
+  }
+  
+  .card--content h2 {
+    margin: 0;
+    font-size: 15px;
+    text-align: left;
+  }
+  
+  .card--content p {
+    margin: 10px 0;
+    font-size: 13px;
+  }
+  
+  .card--content p strong {
+    color: #FBDB01;
+  }
+  
