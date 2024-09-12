@@ -8,7 +8,7 @@ import { setFirstPlayer } from "../utils/setFirstPlayer.js"
 
 let firstCards = {}
 export function startGame(io, socket){
-    socket.on('game:gameStart', (data) =>{ // data = "codigo hex de la sala"
+    socket.on('game:startGame', (data) =>{ // data = "codigo hex de la sala"
         try{
             const socketsInRoom = io.sockets.adapter.rooms.get(data)
             const playersN = getRoomSize(data)
