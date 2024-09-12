@@ -3,8 +3,9 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import {Server} from 'socket.io'
 import http from 'http'
-import {newGame, joinRoom, startGame} from './src/sockets/gameSockets.js'
-import { choosedPerk, firstCard, playCard, roundWinner} from './src/sockets/cardSockets.js'
+import {newGame, joinRoom} from './src/sockets/roomSockets.js'
+import {startGame, startRound} from './src/sockets/gameSockets.js'
+import { choosedPerk, firstCard, playCard} from './src/sockets/cardSockets.js'
 
 dotenv.config()
 const app = express()
@@ -24,14 +25,16 @@ io.on('connect', (socket) => {
     
     newGame(io, socket)
     joinRoom(io, socket)
+
     startGame(io, socket)
+    startRound(io, socket)
     
     choosedPerk(io, socket)
     firstCard(io, socket)
     playCard(io, socket)
     roundWinner(io, socket)
 
-    socket.on('disconnect')
+
 })
 
 
