@@ -51,7 +51,8 @@ export function playCard(io, socket){
             
             if(cardsPlayed == totalPlayers){
                 const winnerId = setWinner(roomsData[code].cards, roomsData[code].perk)
-                socket.emit('card:roundWinner', winnerId) // id ganador o draw
+                let cards = roomsData[code].cards
+                socket.emit('card:roundWinner', {winner: winnerId, cards: cards}) // id ganador o draw
             }
             roomsData[code].cards = []
             roomsData[code].perk = ""

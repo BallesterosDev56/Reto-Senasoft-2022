@@ -11,7 +11,6 @@ export function startGame(io, socket){
     socket.on('game:startGame', (data) =>{ // data = "codigo hex de la sala"
         try{
             const socketsInRoom = io.sockets.adapter.rooms.get(data)
-            console.log(socketsInRoom)
             const playersN = getRoomSize(io,data)
             const shuffledCards = shuffler(cards, playersN)
             let i = 0

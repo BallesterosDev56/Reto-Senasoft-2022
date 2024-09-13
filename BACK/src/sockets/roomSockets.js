@@ -38,7 +38,7 @@ export function joinRoom(io, socket){
 
 export async function leaveRoom(io, socket) {
     socket.on('disconnect', () => {
-        console.log("h");
+        
         
     })
 }
