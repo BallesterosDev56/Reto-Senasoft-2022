@@ -1,5 +1,6 @@
 import { setWinner } from "../utils/setWinner.js"
 import { getRoomSize } from "../utils/getRoomSize.js"
+import { shuffler } from "../utils/shuffler.js"
 
 let roomsData = {}
 export function choosedPerk(io, socket){
@@ -51,7 +52,9 @@ export function playCard(io, socket){
             
             if(cardsPlayed == totalPlayers){
                 const winnerId = setWinner(roomsData[code].cards, roomsData[code].perk)
-                socket.emit('card:roundWinner', winnerId) // id ganador o draw
+                let cards = roomsData[code].cards
+                let shuffledCards = shuffler(cards, 1 , true)
+                socket.emit('card:roundWinner', {winner: winnerId, cards: shuffledCards}) // id ganador o draw
             }
             roomsData[code].cards = []
             roomsData[code].perk = ""

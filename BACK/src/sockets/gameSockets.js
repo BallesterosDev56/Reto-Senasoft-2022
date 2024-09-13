@@ -11,9 +11,11 @@ export function startGame(io, socket){
     socket.on('game:startGame', (data) =>{ // data = "codigo hex de la sala"
         try{
             const socketsInRoom = io.sockets.adapter.rooms.get(data)
-            console.log(socketsInRoom)
+            if(!socketsInRoom){
+                return socket.emit("game:error", {server: "Error que pasa cuando el servidor se cae y hay gente en el componenete de espera y me emite el evento startgame, mediante este error tenemos que devolver de componente al usurio si el servidor se cae, porque las rooms se borran"})
+            }
             const playersN = getRoomSize(io,data)
-            const shuffledCards = shuffler(cards, playersN)
+            const shuffledCards = shuffler(cards, playersN, false)
             let i = 0
             firstCards[data] = {
                 cards: []

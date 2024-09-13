@@ -10,20 +10,19 @@ function divisor(cards, numero){
     }
 }
 
-export function shuffler(cards, players) {
+export function shuffler(cards, players = 0, di = false) {
     try{
         let j = 0;
         for(let i = 0; i < cards.length; i++){
             j = Math.floor(Math.random() * cards.length);
             [cards[i], cards[j]] = [cards[j], cards[i]]
         } 
-        const baraja = divisor(cards, players)        
+        if(di){
+            return cards
+        }
+        const baraja = divisor(cards, players)
         return baraja
     }catch(err){
         console.log(err)
     }
 }
-
-
-let b = { antonio: {nombre : "jose", edad: 23, a: { b: "hola"} }}
-b["as"] = "holi"
