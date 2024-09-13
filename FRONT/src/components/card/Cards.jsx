@@ -1,24 +1,35 @@
 import "./card.css";
 
-export const Card = () => {
+export const Card = ({data}) => {
+  console.log(data);
+  
+  let {
+    id, 
+    photo,
+    modelo,
+    cilindraje,
+    potencia,
+    topSpeed
+  } = data;
+
   return (
     <div className="card--blackjack">
+      <h2>{id}  {modelo}</h2>
       <div className="card--image">
         <img
-          src="https://storage.googleapis.com/url-images-generator.appspot.com/1725990019394_toyota_corolla.png"
-          alt="Toyota Corolla"
+          src={photo}
+          alt={modelo}
         />
       </div>
       <div className="card--content">
-        <h2>Modelo: Corolla</h2>
         <p>
-          <strong>Cilindraje:</strong> 1800 cc
+          <strong>Cilindraje:</strong> {cilindraje}
         </p>
         <p>
-          <strong>Potencia:</strong> 139 HP
+          <strong>Potencia:</strong> {potencia}
         </p>
         <p>
-          <strong>Vel. Máx:</strong> 180 km/h
+          <strong>Vel. Máx:</strong> {topSpeed}
         </p>
       </div>
     </div>

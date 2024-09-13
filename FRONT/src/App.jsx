@@ -6,7 +6,6 @@ import { io } from 'socket.io-client'
 import {Login} from './pages/login/Login'
 import {AdminWaiting} from './pages/adminWaiting/AdminWaiting'
 import {GuestWaiting} from './pages/guestWaiting/GuestWaiting'
-import {Game} from './pages/game/Game'
 
 
 function App() {
@@ -50,8 +49,6 @@ function App() {
           socket={socket}
           nPlayers={numberPlayers}
         ></AdminWaiting>)
-        //(<Game></Game>)
-
           
         : 
         (<GuestWaiting 
