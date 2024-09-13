@@ -21,7 +21,7 @@ export function startGame(io, socket){
                 cards: []
             }
             socketsInRoom.forEach(socketId => {
-                io.to(socketId).emit('game:cards', {cards: shuffledCards[i], size: playersN})// cards: un array de arrays, cada uno con 4 cartas aleatorias, size: numero de jugadores en la room
+                io.to(socketId).emit('game:cards', {cards: shuffledCards[i]})// cards: un array de arrays, cada uno con 4 cartas aleatorias, size: numero de jugadores en la room
                 i++
             })
             i = 0
