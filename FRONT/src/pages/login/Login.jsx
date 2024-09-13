@@ -8,7 +8,6 @@ export const Login = ({setRenderLogin, socket})=> {
 
     const handleOnClick = ()=>{
         setRenderLogin('Admin');
-        git 
     }
     const onSubmit = (data)=> {
         
