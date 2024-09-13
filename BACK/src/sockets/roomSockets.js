@@ -11,7 +11,11 @@ export function newGame(io, socket) {
                 return socket.emit('room:error', {message: 'Error in the hexGenerator'})
             }
             await socket.join(code)
-            await newRoom(code, socket.id)
+            let result = await newRoom(code, socket.id)
+            if(!result){
+                console.log("usted es un tonto hijueputa");
+                
+            }
             socket.emit('room:code', code) // envio codigo hex y creo la sala
         }catch(err){
             socket.emit('room:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
