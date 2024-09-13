@@ -28,9 +28,9 @@ export async function getRoomByHex(hex) {
     }
 }
 
-export async function newRoom(hex) {
+export async function newRoom(hex, id) {
     try{
-        const [result] = await db.query('INSERT INTO rooms (hex) VALUES (?)', [hex])
+        const [result] = await db.query('INSERT INTO rooms (hex, creator) VALUES (?,?)', [hex, id])
         if(result.affectedRows == 0){
             return null
         }
@@ -40,5 +40,9 @@ export async function newRoom(hex) {
     }catch(err){
         console.log(err)
     }
+}
+
+export async function deleteRoom() {
+    
 }
 

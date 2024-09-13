@@ -11,7 +11,7 @@ export function newGame(io, socket) {
                 return socket.emit('room:error', {message: 'Error in the hexGenerator'})
             }
             await socket.join(code)
-            await newRoom(code)
+            await newRoom(code, socket.id)
             socket.emit('room:code', code) // envio codigo hex y creo la sala
         }catch(err){
             socket.emit('room:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
@@ -38,7 +38,10 @@ export function joinRoom(io, socket){
 
 export async function leaveRoom(io, socket) {
     socket.on('disconnect', () => {
-        
-        
+        try{
+
+        }catch(err){
+            socket.emit('room:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
+        }
     })
 }
