@@ -1,7 +1,6 @@
 import "./card.css";
 
 export const Card = ({data}) => {
-  console.log(data);
   
   let {
     id, 

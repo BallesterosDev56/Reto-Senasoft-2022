@@ -3,11 +3,14 @@ import { Card } from '../../components/card/Cards'
 import { CardPlayer } from '../../components/cardPlayer/CardPlayer'
 import { useEffect, useState } from 'react'
 
-export const Game = ({cardsPlayer, nPlayers, socket})=> {
+export const Game = ({cardsPlayer, nPlayers, socket, code})=> {
   
-  
-  
-  const [numberPlayers, setNumberPlayers] = useState([]);
+const [numberPlayers, setNumberPlayers] = useState([]);
+
+  useEffect(()=> {
+    socket.emit('game:startRound', {'code': code, 'card': cardsPlayer[0]}); 
+
+  }, [])
 
   //creamos el array para iterar el numero de cartas por renderizar
   useEffect(()=> {
@@ -28,14 +31,27 @@ export const Game = ({cardsPlayer, nPlayers, socket})=> {
 
   }, [nPlayers])
 
-  //emitiendo la primera carta de la baraja
+  //escuchando los cambios del socket:
   useEffect(()=> {
-    if (cardsPlayer.length>0) {
-      socket.emit('game:startRound', cardsPlayer[0]);      
+    if (socket) {
+     
+      
+      //recibiendo los errores:
+      socket.on('game:error', ((error)=> {
+        console.log(error);
+        
+      }));
+
+      //recibiendo el id del primer jugador:
+      socket.on('game:selectPlayer', (firstCardId)=> {
+        console.log(firstCardId);
+        
+
+      })
 
     }
 
-  }, [cardsPlayer])
+  }, [socket])
   
   
   
