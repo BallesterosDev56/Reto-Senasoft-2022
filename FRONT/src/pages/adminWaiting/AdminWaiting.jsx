@@ -26,14 +26,16 @@ export const AdminWaiting = ({socket, nPlayers})=> {
     useEffect(()=> {
         if (socket) {
             //recibimos el codigo
-            socket.on('room:code', (code)=>{
+            socket.on('room:code', (code)=>{                
                 setCode(code);
 
             });
 
             //recibiendo las cartas:
             socket.on('game:cards', (response)=> {
-                let {cards} = response;    
+                let {cards} = response;   
+                console.log(cards);
+                 
                 setCardsPlayer((prev)=> [...prev, ...cards]);                
                 
             });
@@ -97,6 +99,7 @@ export const AdminWaiting = ({socket, nPlayers})=> {
                     <Game
                     cardsPlayer={cardsPlayer}
                     nPlayers={nPlayers}
+                    code={code}
                     ></Game>
                 )
             }        

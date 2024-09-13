@@ -102,6 +102,7 @@ export const GuestWaiting = ({socket, nPlayers, setRenderLogin}) => {
                 cardsPlayer={cardsPlayer}
                 nPlayers={nPlayers}
                 socket={socket}
+                code={code}
                 ></Game> 
             )
         }

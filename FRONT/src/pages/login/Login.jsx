@@ -13,7 +13,7 @@ export const Login = ({setRenderLogin, socket})=> {
         
         socket.emit('room:joinRoom', data.match);
         setRenderLogin('Guest');
-        
+        reset();
     }
 
 

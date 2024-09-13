@@ -7,10 +7,10 @@ export const Game = ({cardsPlayer, nPlayers, socket, code})=> {
   
 const [numberPlayers, setNumberPlayers] = useState([]);
 
-  useEffect(()=> {
-    socket.emit('game:startRound', {'code': code, 'card': cardsPlayer[0]}); 
+    // useEffect(()=> {
+    //   socket.emit('game:startRound', {code : code, card : cardsPlayer[0]}); 
 
-  }, [])
+    // }, [])
 
   //creamos el array para iterar el numero de cartas por renderizar
   useEffect(()=> {
