@@ -8,6 +8,7 @@ export const Game = ({cardsPlayer, nPlayers, socket, code})=> {
 const [numberPlayers, setNumberPlayers] = useState([]);
 const [startRound, setStartRound] = useState('null');
 
+  socket.emit('game:setStart', 'data');
 
   //creamos el array para iterar el numero de cartas por renderizar
   useEffect(()=> {
@@ -33,7 +34,9 @@ const [startRound, setStartRound] = useState('null');
     if (socket) {
       //recibiendo el seteador del evento startRound:
       socket.on('game:setStart', ((response)=> {
-        setStartRound('response');
+        console.log('este', response);
+        
+        setStartRound(response);
 
       }));     
       
