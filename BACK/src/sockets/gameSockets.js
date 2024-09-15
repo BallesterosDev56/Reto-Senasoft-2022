@@ -46,7 +46,7 @@ export function startRound(io, socket){
             }
             if(playersN == firstCards[data.code].cards.length){
                 let firstCardId = setFirstPlayer(firstCards[data.code].cards)
-                socket.emit("game:selectPlayer", firstCardId )
+                socket.emit('game:selectPlayer', firstCardId )
             }else{
                 firstCards[data.code].cards.push(data.card)
             }
