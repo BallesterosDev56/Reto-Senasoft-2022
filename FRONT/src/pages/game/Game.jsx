@@ -52,6 +52,20 @@ const [numberPlayers, setNumberPlayers] = useState([]);
     }
 
   }, [socket])
+
+  //manejando los perks:
+  const handleHorsePower = ()=> {
+    
+  }
+  const handleSpeed = ()=> {
+
+  }
+  const handleWeight = ()=> {
+
+  }
+  const handleCC = ()=> {
+
+  }
   
   
   
@@ -85,19 +99,19 @@ const [numberPlayers, setNumberPlayers] = useState([]);
 
               <div className="col-1">
                   <div className="row ">
-                    <div className="btn btn-danger mt-4 mb-2">Horse Power</div>
+                    <button onClick={handleHorsePower} className="btn btn-danger mt-4 mb-2">Horse Power</button>
                   </div>
 
                   <div className="row">
-                    <div className="btn btn-primary mb-2">Speed</div>
+                    <button onClick={handleSpeed} className="btn btn-primary mb-2">Speed</button>
                   </div>
 
                   <div className="row">
-                    <div className="btn btn-info mb-2">Weight</div>
+                    <button onClick={handleWeight} className="btn btn-info mb-2">Weight</button>
                   </div>
 
                   <div className="row">
-                    <div className="btn btn-warning mb-2">CC</div>
+                    <button onClick={handleCC} className="btn btn-warning mb-2">CC</button>
                   </div>
               </div>
 
