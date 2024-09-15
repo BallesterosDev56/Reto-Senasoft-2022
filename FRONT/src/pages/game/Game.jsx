@@ -12,6 +12,13 @@ const [startRound, setStartRound] = useState(null);
   //   socket.emit('game:setStart', 'data');
 
   // }
+  if (socket) {
+    console.log(code, cardsPlayer[0]);
+    
+    socket.emit('game:startRound', {code : code, card : cardsPlayer[0]}); 
+
+
+  }
 
   //creamos el array para iterar el numero de cartas por renderizar
   useEffect(()=> {
@@ -36,12 +43,12 @@ const [startRound, setStartRound] = useState(null);
   useEffect(()=> {
     if (socket) {
       //recibiendo el seteador del evento startRound:
-      socket.on('game:setStart', ((response)=> {
-        console.log('este', response);
+      // socket.on('game:setStart', ((response)=> {
+      //   console.log('este', response);
         
-        setStartRound(response);
+      //   setStartRound(response);
 
-      }));     
+      // }));     
       
       //recibiendo los errores:
       socket.on('game:error', ((error)=> {
@@ -60,13 +67,13 @@ const [startRound, setStartRound] = useState(null);
   }, [socket])
 
   //escuchando los cambios de el start round:
-  useEffect(()=> {
-    if (startRound) {
-      socket.emit('game:startRound', {code : code, card : cardsPlayer[0]}); 
+  // useEffect(()=> {
+  //   if (startRound) {
+  //     socket.emit('game:startRound', {code : code, card : cardsPlayer[0]}); 
 
-    }
+  //   }
 
-  }, [startRound])
+  // }, [startRound])
 
 
   //manejando los perks:
