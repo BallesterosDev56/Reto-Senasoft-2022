@@ -33,9 +33,7 @@ export const AdminWaiting = ({socket, nPlayers})=> {
 
             //recibiendo las cartas:
             socket.on('game:cards', (response)=> {
-                let {cards} = response;   
-                console.log(cards);
-                 
+                let {cards} = response;                    
                 setCardsPlayer((prev)=> [...prev, ...cards]);                
                 
             });
@@ -100,6 +98,7 @@ export const AdminWaiting = ({socket, nPlayers})=> {
                     cardsPlayer={cardsPlayer}
                     nPlayers={nPlayers}
                     code={code}
+                    socket={socket}
                     ></Game>
                 )
             }        

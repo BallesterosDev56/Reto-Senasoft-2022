@@ -6,9 +6,12 @@ import { useEffect, useState } from 'react'
 export const Game = ({cardsPlayer, nPlayers, socket, code})=> {
   
 const [numberPlayers, setNumberPlayers] = useState([]);
-const [startRound, setStartRound] = useState('null');
+const [startRound, setStartRound] = useState(null);
 
-  socket.emit('game:setStart', 'data');
+  // if (socket) {
+  //   socket.emit('game:setStart', 'data');
+
+  // }
 
   //creamos el array para iterar el numero de cartas por renderizar
   useEffect(()=> {
