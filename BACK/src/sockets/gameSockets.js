@@ -55,3 +55,9 @@ export function startRound(io, socket){
         }
     })
 }
+
+export function setStart(io, socket){
+    socket.on('game:setStart', (data) => {
+        socket.emit('game:setStart', 'hola')
+    })
+}

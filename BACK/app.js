@@ -4,7 +4,7 @@ import cors from 'cors'
 import {Server} from 'socket.io'
 import http from 'http'
 import {newGame, joinRoom} from './src/sockets/roomSockets.js'
-import {startGame, startRound} from './src/sockets/gameSockets.js'
+import {startGame, startRound, setStart} from './src/sockets/gameSockets.js'
 import { choosedPerk, firstCard, playCard} from './src/sockets/cardSockets.js'
 
 dotenv.config()
@@ -27,6 +27,7 @@ io.on('connect', (socket) => {
     joinRoom(io, socket)
 
     startGame(io, socket)
+    setStart(io, socket)
     startRound(io, socket)
     
     choosedPerk(io, socket)
