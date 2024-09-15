@@ -6,11 +6,8 @@ import { useEffect, useState } from 'react'
 export const Game = ({cardsPlayer, nPlayers, socket, code})=> {
   
 const [numberPlayers, setNumberPlayers] = useState([]);
+const [startRound, setStartRound] = useState('null');
 
-    // useEffect(()=> {
-    //   socket.emit('game:startRound', {code : code, card : cardsPlayer[0]}); 
-
-    // }, [])
 
   //creamos el array para iterar el numero de cartas por renderizar
   useEffect(()=> {
@@ -34,7 +31,11 @@ const [numberPlayers, setNumberPlayers] = useState([]);
   //escuchando los cambios del socket:
   useEffect(()=> {
     if (socket) {
-     
+      //recibiendo el seteador del evento startRound:
+      socket.on('game:setStart', ((response)=> {
+        setStartRound('response');
+
+      }));     
       
       //recibiendo los errores:
       socket.on('game:error', ((error)=> {
@@ -46,12 +47,21 @@ const [numberPlayers, setNumberPlayers] = useState([]);
       socket.on('game:selectPlayer', (firstCardId)=> {
         console.log(firstCardId);
         
-
       })
 
     }
 
   }, [socket])
+
+  //escuchando los cambios de el start round:
+  useEffect(()=> {
+    if (startRound) {
+      socket.emit('game:startRound', {code : code, card : cardsPlayer[0]}); 
+
+    }
+
+  }, [startRound])
+
 
   //manejando los perks:
   const handleHorsePower = ()=> {
