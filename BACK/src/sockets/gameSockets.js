@@ -46,12 +46,18 @@ export function startRound(io, socket){
             }
             if(playersN == firstCards[data.code].cards.length){
                 let firstCardId = setFirstPlayer(firstCards[data.code].cards)
-                socket.emit("game:selectPlayer", firstCardId )
+                socket.emit('game:selectPlayer', firstCardId )
             }else{
                 firstCards[data.code].cards.push(data.card)
             }
         }catch(err){
             socket.emit('game:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
         }
+    })
+}
+
+export function setStart(io, socket){
+    socket.on('game:setStart', (data) => {
+        socket.emit('game:setStart', 'hola')
     })
 }
