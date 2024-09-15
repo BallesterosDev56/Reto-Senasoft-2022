@@ -1,24 +1,15 @@
 import "./card.css";
 
-export const Card = ({data}) => {
-  
-  let {
-    id, 
-    photo,
-    modelo,
-    cilindraje,
-    potencia,
-    topSpeed
-  } = data;
+export const Card = ({ data }) => {
+  let { id, photo, modelo, cilindraje, potencia, topSpeed } = data;
 
   return (
     <div className="card--blackjack">
-      <h2>{id}  {modelo}</h2>
+      <h2>
+        {id} {modelo}
+      </h2>
       <div className="card--image">
-        <img
-          src={photo}
-          alt={modelo}
-        />
+        <img src={photo} alt={modelo} />
       </div>
       <div className="card--content">
         <p>
