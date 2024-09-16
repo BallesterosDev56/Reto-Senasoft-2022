@@ -78,28 +78,28 @@ const [yourTurn, setYourTurn] = useState(null);
   //manejando los perks:
   const handleHorsePower = ()=> {
     if (socket) {
-      socket.emit('card:perk', 'potencia');
+      socket.emit('card:perk', {code: code, perk: "potencia"});
       setPlayButton(false);
 
     }
   }
   const handleSpeed = ()=> {
     if (socket) {
-      socket.emit('card:perk', 'topSpeed');
+      socket.emit('card:perk', {code: code, perk: "topSpeed"});
       setPlayButton(false);
 
     }    
   }
   const handleWeight = ()=> {
     if (socket) {
-      socket.emit('card:perk', 'peso');
+      socket.emit('card:perk', {code: code, perk: "peso"});
       setPlayButton(false);
 
     }
   }
   const handleCC = ()=> {
     if (socket) {
-      socket.emit('card:perk', 'cilindraje');
+      socket.emit('card:perk', {code: code, perk: "cilindraje "});
       setPlayButton(false);
 
     }
