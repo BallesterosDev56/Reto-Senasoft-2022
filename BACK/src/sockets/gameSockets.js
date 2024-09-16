@@ -44,14 +44,29 @@ export function startRound(io, socket){
             if(!firstCards[data.code]){
                 return socket.emit('game:error', { message: 'Room not found' })
             }
+            
+            
+            
             if(playersN == firstCards[data.code].cards.length){
                 let firstCardId = setFirstPlayer(firstCards[data.code].cards)
-                socket.emit("game:selectPlayer", firstCardId )
-            }else{
+                io.to(data.code).emit('game:selectPlayer', firstCardId )
+            }else if(!(playersN == firstCards[data.code].cards.length)){
                 firstCards[data.code].cards.push(data.card)
             }
+            if(playersN == firstCards[data.code].cards.length){
+                console.log('Hola emitido');
+                let firstCardId = setFirstPlayer(firstCards[data.code].cards)
+                io.to(data.code).emit('game:selectPlayer', firstCardId )
+            }
+            
         }catch(err){
             socket.emit('game:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
         }
+    })
+}
+
+export function setStart(io, socket){
+    socket.on('game:setStart', (data) => {
+        socket.emit('game:setStart', 'hola')
     })
 }

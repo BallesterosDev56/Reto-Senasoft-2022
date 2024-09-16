@@ -11,6 +11,8 @@ export function choosedPerk(io, socket){
                 totalPlayers: getRoomSize(io, data),
                 perk: data.perk
             }
+            console.log(roomsData);
+            
         } catch(err){
             socket.emit('card:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
         }
@@ -23,11 +25,14 @@ export function firstCard(io, socket){
             let code = data.code
             let card = data.card
             if (!roomsData[code]) {
+                console.log('error')
                 return socket.emit('card:error', { message: 'Room not found' });
             }
             roomsData[code].cards.push({id:socket.id, card: card})
             socket.broadcast.to(data.code).emit('card:yourTurn', 'Habilitado')
         } catch(err){
+            console.log(err)
+            
             socket.emit('card:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
         }
     })
@@ -54,10 +59,14 @@ export function playCard(io, socket){
                 const winnerId = setWinner(roomsData[code].cards, roomsData[code].perk)
                 let cards = roomsData[code].cards
                 let shuffledCards = shuffler(cards, 1 , true)
-                socket.emit('card:roundWinner', {winner: winnerId, cards: shuffledCards}) // id ganador o draw
+                if(winnerId === "draw"){
+                    io.to(data.code).emit('card:roundWinner', {winner: winnerId, cards: shuffledCards}) // id ganador o draw
+                }else{
+                    io.to(data.code).emit('card:roundWinner', {winner: winnerId, cards: shuffledCards}) // id ganador o draw
+                    roomsData[code].cards = []
+                    roomsData[code].perk = ""
+                }
             }
-            roomsData[code].cards = []
-            roomsData[code].perk = ""
         } catch(err){
             socket.emit('card:error', {message: 'INTERNAL SERVER ERROR', error: err.message})
         }

@@ -9,18 +9,19 @@ export const AdminWaiting = ({socket, nPlayers})=> {
     const [cardsPlayer, setCardsPlayer] = useState([]);
     const [renderGame, setRenderGame] = useState(false);
 
-    useEffect(()=> {
-        if (nPlayers >= 2) {
-            setButtonState(false)
-        }
-    }), [nPlayers];
-
     useEffect(()=>{
 
         //emitimos el generador del codigo
         socket.emit('room:newGame', 'testing');
 
     }, [])
+    
+    useEffect(()=> {
+        if (nPlayers >= 2) {
+            setButtonState(false)
+        }
+    }), [nPlayers];
+
 
     //escuchando el cambio del socket
     useEffect(()=> {
@@ -98,6 +99,7 @@ export const AdminWaiting = ({socket, nPlayers})=> {
                     cardsPlayer={cardsPlayer}
                     nPlayers={nPlayers}
                     code={code}
+                    socket={socket}
                     ></Game>
                 )
             }        
