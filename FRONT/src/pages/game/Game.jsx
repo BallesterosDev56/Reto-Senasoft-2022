@@ -10,10 +10,12 @@ const [enablePerks, setEnablePerks] = useState(true);
 const [playButton, setPlayButton] = useState(true);
 const [yourTurn, setYourTurn] = useState(null);
 
-  if (socket) {
-    socket.emit('game:startRound', {code : code, card : cardsPlayer[0]}); 
-
-  }
+  useEffect(()=> {
+    if (socket) {
+      socket.emit('game:startRound', {code : code, card : cardsPlayer[0]}); 
+  
+    }
+  }, [])
 
   //creamos el array para iterar el numero de cartas por renderizar
   useEffect(()=> {
