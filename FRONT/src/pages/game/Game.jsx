@@ -47,7 +47,7 @@ const [yourTurn, setYourTurn] = useState(null);
       }));
 
       //recibiendo el id del primer jugador:
-      socket.on('game:selectPlayer', (firstCardId)=> {        
+      socket.on('game:selectPlayer', (firstCardId)=> { 
         if (firstCardId === cardsPlayer[0].id) {
           setEnablePerks(false);
           
