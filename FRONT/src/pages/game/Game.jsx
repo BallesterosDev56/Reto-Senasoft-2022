@@ -6,13 +6,12 @@ import { useEffect, useState } from 'react'
 export const Game = ({cardsPlayer, nPlayers, socket, code})=> {
   
 const [numberPlayers, setNumberPlayers] = useState([]);
-const [startRound, setStartRound] = useState('null');
+const [enablePerks, setEnablePerks] = useState(true);
+const [playButton, setPlayButton] = useState(true);
+const [yourTurn, setYourTurn] = useState(null);
 
   if (socket) {
-    console.log(code, cardsPlayer[0]);
-    
     socket.emit('game:startRound', {code : code, card : cardsPlayer[0]}); 
-
 
   }
 
@@ -46,30 +45,71 @@ const [startRound, setStartRound] = useState('null');
       }));
 
       //recibiendo el id del primer jugador:
-      socket.on('game:selectPlayer', (firstCardId)=> {
-        console.log(firstCardId);
+      socket.on('game:selectPlayer', (firstCardId)=> {        
+        if (firstCardId === cardsPlayer[0].id) {
+          setEnablePerks(false);
+          
+        }
         
       })
+
+      //recibiendo el turno de los demás
+      socket.on('card:yourTurn', (response)=> {
+        console.log(response);
+        
+        setYourTurn(response);
+      });
 
     }
 
   }, [socket])
 
+  //escuchando los cambios de your turn:
+  useEffect(()=> {
+    if (yourTurn) {
+      console.log('tu turno mf');
+      
+    }
+  }, [yourTurn])
+
 
   //manejando los perks:
   const handleHorsePower = ()=> {
-    
+    if (socket) {
+      socket.emit('card:perk', 'potencia');
+      setPlayButton(false);
+
+    }
   }
   const handleSpeed = ()=> {
+    if (socket) {
+      socket.emit('card:perk', 'topSpeed');
+      setPlayButton(false);
 
+    }    
   }
   const handleWeight = ()=> {
+    if (socket) {
+      socket.emit('card:perk', 'peso');
+      setPlayButton(false);
 
+    }
   }
   const handleCC = ()=> {
+    if (socket) {
+      socket.emit('card:perk', 'cilindraje');
+      setPlayButton(false);
 
+    }
   }
-  
+
+  //manejando play Button:
+  const handlePlayButton = ()=> {
+    if (socket) {
+      socket.emit('card:firstCard', {code: code, card: cardsPlayer[0] });
+    }
+
+  }  
   
   
     return (
@@ -96,25 +136,28 @@ const [startRound, setStartRound] = useState('null');
             <div className="row justify-content-center mt-3">
 
                 <h2 className='text-center text-white fs-1'>Your card: </h2>
+                <div className="row col-2 h-25 p-3">
+                  <button onClick={handlePlayButton} className='btn btn-success btn-gradient mt-1 mb-1' disabled={playButton}>Play</button>
+                </div>
               <div className="col-2 d-flex justify-content-end mt-2">
                 <Card data={cardsPlayer[0]}></Card>
               </div>
 
               <div className="col-1">
                   <div className="row ">
-                    <button onClick={handleHorsePower} className="btn btn-danger mt-4 mb-2">Horse Power</button>
+                    <button onClick={handleHorsePower} className="btn btn-danger mt-4 mb-2" disabled={enablePerks}>Potencia</button>
                   </div>
 
                   <div className="row">
-                    <button onClick={handleSpeed} className="btn btn-primary mb-2">Speed</button>
+                    <button onClick={handleSpeed} className="btn btn-primary mb-2" disabled={enablePerks}>Velocidad</button>
                   </div>
 
                   <div className="row">
-                    <button onClick={handleWeight} className="btn btn-info mb-2">Weight</button>
+                    <button onClick={handleWeight} className="btn btn-info mb-2" disabled={enablePerks}>Peso</button>
                   </div>
 
                   <div className="row">
-                    <button onClick={handleCC} className="btn btn-warning mb-2">CC</button>
+                    <button onClick={handleCC} className="btn btn-warning mb-2" disabled={enablePerks}>Cilindraje</button>
                   </div>
               </div>
 
